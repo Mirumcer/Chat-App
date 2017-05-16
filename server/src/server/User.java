@@ -1,5 +1,7 @@
 package server;
 
+import org.json.simple.JSONObject;
+
 /*
  * Client requests to the server:
  * 
@@ -8,8 +10,34 @@ package server;
  * */
 
 public class User {
+	
 	public String username;
 	protected String password;
 	
 	
+	
+	
+	public User(JSONObject newUser){
+		this.username = (String) newUser.get("username");
+		this.password = (String) newUser.get("password");
+	}
+	
+	//checks to see if the username and password are valid
+	public  boolean isValid(User toVerify){
+		if(this.username == toVerify.username){
+			if(toVerify.comparePassword(this.password)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//checks the password strings to see of they are the same
+	public boolean comparePassword(String toCompare){
+		if(this.password == toCompare){
+			return true;
+		}
+		
+		return false;
+	}
 }

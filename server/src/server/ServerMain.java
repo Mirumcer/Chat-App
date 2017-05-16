@@ -85,15 +85,20 @@ public class ServerMain {
                 	JSONParser parser = new JSONParser(); 
                 	
                 	try {
+                		//prints the JSON object
                 		System.out.println(incomingCommand);
-						JSONObject json = (JSONObject) parser.parse(incomingCommand);
 						
+                		//parses the json object and greates object to interface with
+                		JSONObject json = (JSONObject) parser.parse(incomingCommand);
+						
+                		//
 						System.out.println("New command from client. The action from the command is:" + json.get("action"));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
+                	
                 	
                 } finally {
                     socket.close();

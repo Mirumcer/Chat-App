@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
 public class ClientMain {
 
 	public static void main(String[] args) throws IOException {
@@ -27,6 +28,7 @@ public class ClientMain {
 		 * - login_success: login successful
 		 * - new_public_message: receives a new public message
 		 * */
+		
 		BufferedReader input =
 	            new BufferedReader(new InputStreamReader(s.getInputStream()));
 
@@ -56,13 +58,66 @@ public class ClientMain {
 			e.printStackTrace();
 		}
 		
-		// Now we send something to the server
-		//PrintWriter out =
-        //        new PrintWriter(s.getOutputStream(), true);
+    	
+    	JSONObject task = createTask();
+    	
+    	PrintWriter out =
+                new PrintWriter(s.getOutputStream(), true);
+    	
+    	out.println(task.toJSONString());
+    	
+    	
+    	/*
+    	// Now we send something to the server
+		PrintWriter out =
+                new PrintWriter(s.getOutputStream(), true);
+		
+		JSONObject helloLog = new JSONObject();
+		helloLog.put("action", "message");
+		helloLog.put("message", "It's nice to connect to the server");
+		
+		out.println(helloLog.toJSONString());
 		
 		//out.println("Hi server. Thanks for connecting!");
+		 */
+		 
 
 		System.exit(0);
+	}
+	
+	public static JSONObject createTask() throws IOException{
+		//create the buffered stream reader
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		
+		//prompt user to specify the task
+		System.out.print("Task:");
+		String response = in.readLine();
+		
+		switch (response){
+		case"login":
+			System.out.println("Username:");
+			String username = in.readLine();
+			System.out.println("Password:");
+			String password = in.readLine();
+			
+			JSONObject task = new JSONObject();
+			
+			task.put("action", "login");
+			task.put("username", username);
+			task.put("password", password);
+			
+			return task;
+			
+			
+		//handle the other cases like sending a message and stuff
+			
+		
+		
+			
+		}
+		
+		
+		return null;
 	}
 
 }

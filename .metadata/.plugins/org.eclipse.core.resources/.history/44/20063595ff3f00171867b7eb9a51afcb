@@ -1,0 +1,18 @@
+package client;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class LoginScreen {
+	
+	
+	
+	public void 
+	public void show(JFrame main){
+		
+		
+		main.add()
+	}
+	
+
+}

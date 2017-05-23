@@ -15,7 +15,12 @@ import org.json.simple.parser.ParseException;
 
 public class ClientMain {
 
+
 	public static void main(String[] args) throws IOException {
+		
+		UI UserInterface = new UI();
+		
+		
 		// TODO Auto-generated method stub
 		Socket s = new Socket("127.0.0.1", 9090);
 		

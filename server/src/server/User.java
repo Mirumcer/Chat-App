@@ -16,7 +16,6 @@ public class User {
 	
 	
 	
-	
 	public User(JSONObject newUser){
 		this.username = (String) newUser.get("username");
 		this.password = (String) newUser.get("password");

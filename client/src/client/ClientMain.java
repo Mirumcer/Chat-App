@@ -107,6 +107,9 @@ public class ClientMain {
 			task.put("password", password);
 			
 			return task;
+		case"message":
+			Message toSend = new Message();
+			toSend.fillMessage();
 			
 			
 		//handle the other cases like sending a message and stuff

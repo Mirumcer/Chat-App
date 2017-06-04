@@ -3,7 +3,6 @@ INDEX VERSION 1.127+/Users/spencer/Desktop/Chat App/.metadata/.plugins/org.eclip
 1315525803.index
 404199878.index
 1067258947.index
-3525260285.index
 2363563081.index
 1753319412.index
 4238018145.index

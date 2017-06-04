@@ -2,48 +2,62 @@ package client;
 
 
 
-import javafx.scene.paint.Color;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
-
 //import javax.swing.JOptionPane;
-//import javax.swing.JPanel;
+import javax.swing.JPanel;
 
-public class LoginScreen extends javax.swing.JPanel {
+public class LoginScreen extends JPanel {
 	
 
-	public JButton login;
-	public JButton newAccount;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	
-	//function that builds the login screen
+	private JButton login;
+	private JButton newAccount;
+	
+	private String username, password;
+	
+	
+	
+	//Constructor
 	public LoginScreen(){
+		createView();
+	return;		
+	}
+	
+	
+	//initializes the login screen view
+	private void createView(){
 		
 		login = new JButton("LOGIN");
 		newAccount = new JButton("NEW ACCOUNT");
-	
 		
-		login.setVisible(true);
+		login.addActionListener(
+				new loginActionListener()
+				);
 		
 		this.setBackground(java.awt.Color.black);;
-		
-	
-		//login.setAlignmentX(CENTER_ALIGNMENT);
-		//newAccount.setAlignmentX(CENTER_ALIGNMENT);
-		
-		this.setLayout(null);
-		
-		newAccount.setLocation(200, 50);
 		
 		this.add(login);
 		this.add(newAccount);
 		
-		newAccount.setLocation(200, 200);
-		
-	return;	
-		
 	}
 	
+	//Login Action listener for sending log-in request
+	private class loginActionListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			
+		
+		}
+	}
 	
-
 }

@@ -17,6 +17,10 @@ import org.json.simple.parser.ParseException;
 public class ServerMain {
 
 	public static void main(String[] args) throws IOException {
+		
+		//creates the array list of all the users
+		AllUsers allUsers = new AllUsers();
+		
 		System.out.println("Initializing server on port 9090...");
 
 		ServerSocket listener = new ServerSocket(9090);
@@ -28,19 +32,21 @@ public class ServerMain {
 		int clientIdIncrement = 0;
         
 		try {
-            while (true) {
-                Socket socket = listener.accept();
-                
-                // we increment our ID to identify each connection
-                clientIdIncrement++;
-                
-                // we create a new connection with a reference for the socket
-                Connection connection = new Connection(socket, clientIdIncrement);
+            Socket socket = listener.accept();
+            
+            // we increment our ID to identify each connection
+            clientIdIncrement++;
+            
+            // we create a new connection with a reference for the socket
+            Connection connection = new Connection(socket, clientIdIncrement);
 
-                // and finally store in our array of connections for future usage
-                connections[clientIdIncrement] = connection;
-                
-                System.out.println("New connection. Connection ID: " + connection.clientId);
+            // and finally store in our array of connections for future usage
+            connections[clientIdIncrement] = connection;
+            
+            System.out.println("New connection. Connection ID: " + connection.clientId);
+            
+            while (true) {
+
 
                 try {
                 	// Sending data out
@@ -89,10 +95,30 @@ public class ServerMain {
                 		System.out.println(incomingCommand);
 						
                 		//parses the json object and greates object to interface with
-                		JSONObject json = (JSONObject) parser.parse(incomingCommand);
+                		JSONObject request = (JSONObject) parser.parse(incomingCommand);
 						
                 		//
-						System.out.println("New command from client. The action from the command is:" + json.get("action"));
+						System.out.println("New command from client. The action from the command is:" + request.get("action"));
+						
+						//Now do the action that the client has asked.
+						switch((String)request.get("action")){
+						
+						case"loginrequest":
+							
+							allUsers.loginRequestCheck(out, request);
+							break;
+							
+						case"newaccount":
+							
+							allUsers.addUser(out, request);
+							break;
+							
+						}
+						
+						
+						
+						
+						
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -108,6 +134,7 @@ public class ServerMain {
         finally {
             listener.close();
         }
+		
 	}
 
 }

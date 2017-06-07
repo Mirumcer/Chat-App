@@ -16,13 +16,50 @@ import org.json.simple.parser.ParseException;
 public class ClientMain {
 
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException {
 		
 		UI UserInterface = new UI();
 		
-		
-		// TODO Auto-generated method stub
 		Socket s = new Socket("127.0.0.1", 9090);
+		
+		PrintWriter out =
+                new PrintWriter(s.getOutputStream(), true);
+		
+		BufferedReader in = new BufferedReader(
+				new InputStreamReader(s.getInputStream()));
+		
+		boolean validLogin = false;
+		
+		//keep looping until the a valid username and password have been entered.
+    	while(!validLogin){
+    		
+    		JSONObject loginRequest = new JSONObject();
+    		
+    		//prompt to add the username and password to JSON object through the UI
+    		UserInterface.loginView(loginRequest);
+  
+    		out.println(loginRequest.toJSONString());
+    		try{
+
+    			String responseString = in.readLine();
+    			JSONParser paerser = new JSONParser();
+    		
+    			JSONObject responseMessage = (JSONObject) paerser.parse(responseString);
+    		
+    			if((String) responseMessage.get("action") == "login Valid"){
+    				System.out.println("Login Is Valid");
+    				validLogin = true;
+    				UserInterface.messagesView(in);
+    			}
+    		
+    		}catch (ParseException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+
+    		
+    	}
+		
 		
 		/* 
 		 * This part of the client handle incoming commands.
@@ -41,6 +78,19 @@ public class ClientMain {
     	
     	JSONParser parser = new JSONParser(); 
     	
+
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	/*
+    	
     	try {
 			JSONObject json = (JSONObject) parser.parse(incomingCommand);
 			
@@ -49,8 +99,13 @@ public class ClientMain {
 			System.out.println("New incoming action from server: " + action);
 			System.out.println();
 			
+			//tests the task to see what is it.
 			switch (action) {
-				case "log":
+			case"login":
+				
+				
+				
+			case "log":
 					System.out.println("New log from server: " + json.get("message"));
 					break;
 					
@@ -70,7 +125,7 @@ public class ClientMain {
                 new PrintWriter(s.getOutputStream(), true);
     	
     	out.println(task.toJSONString());
-    	
+    	*/
     	
     	/*
     	// Now we send something to the server

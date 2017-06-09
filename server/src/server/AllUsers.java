@@ -57,6 +57,18 @@ public class AllUsers extends ArrayList<User>{
 		
 	}
 	
+	public void print(){
+		
+		System.out.println("Full User List:");
+		
+		for( int i = 0; i < this.size(); i++){
+			
+			User toPrint = this.get(i);
+			toPrint.print();
+			
+		}
+	}
+	
 	
 
 }

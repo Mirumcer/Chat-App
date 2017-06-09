@@ -39,4 +39,7 @@ public class User {
 		
 		return false;
 	}
+	
+	public void print(){
+		System.out.println("Username: " + this.username);	}
 }

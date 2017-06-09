@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 
 public class ServerMain {
 
+
 	public static void main(String[] args) throws IOException {
 		
 		//creates the array list of all the users
@@ -25,35 +26,33 @@ public class ServerMain {
 
 		ServerSocket listener = new ServerSocket(9090);
 		
-		// we create an array of connections for easy reference
-		Connection[] connections = new Connection[100];
+		System.out.println("Server Initialized");
 		
 		// we can just do a simple increment for our ids
 		int clientIdIncrement = 0;
         
 		try {
-            Socket socket = listener.accept();
-            
-            // we increment our ID to identify each connection
-            clientIdIncrement++;
-            
-            // we create a new connection with a reference for the socket
-            Connection connection = new Connection(socket, clientIdIncrement);
-
-            // and finally store in our array of connections for future usage
-            connections[clientIdIncrement] = connection;
-            
-            System.out.println("New connection. Connection ID: " + connection.clientId);
-            
+			while(true){
+				Socket socket = listener.accept();
+				
+				new Connection(socket, clientIdIncrement, allUsers).start();
+				
+				// we increment our ID to identify each connection
+	            clientIdIncrement++;
+	            
+	            System.out.println("New connection. Connection ID: " + clientIdIncrement);
+				
+			}
+			
+			/*
+			 
+	
             while (true) {
 
 
                 try {
-                	// Sending data out
-                	PrintWriter out =
-                        new PrintWriter(socket.getOutputStream(), true);
                 	
-                	/* 
+                	
                 	 * This part of the program sends data to the client.
                 	 * 
                 	 * We can follow this JSON formatting for sending data:
@@ -62,7 +61,7 @@ public class ServerMain {
                 	 * Bad login: { "action": "login_error", "error_message": "Incorrect credentials." }
                 	 * Send log: { "action": "log", "message": "Hi this is the server. You just connected!" }
                 	 * New public message: { "action": "new_public_message", "message": "This is a message." }
-                	 * */
+                	 *
                 	
                 	// As soon as the client is connected, let's just send a quick message to the client saying hi
                 	JSONObject helloLog = new JSONObject();
@@ -82,7 +81,7 @@ public class ServerMain {
                 	 * Registration format: { "action": "register", "username": "spencer@gmail.com", "password": "123456" }
                 	 * Message format: { "action": "message", "message": "Hello world!" }
                 	 * 
-                	 * */
+                	 * *
                 	BufferedReader in =
             	            new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 	
@@ -115,7 +114,7 @@ public class ServerMain {
 							
 						}
 						
-						
+					allUsers.print();
 						
 						
 						
@@ -123,18 +122,13 @@ public class ServerMain {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+                	
+                	*/
 
                 	
                 	
-                } finally {
-                    socket.close();
-                }
-            }
+                }finally{
+                	listener.close();
+			}
         }
-        finally {
-            listener.close();
-        }
-		
 	}
-
-}

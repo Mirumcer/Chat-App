@@ -82,6 +82,7 @@ public class LoginScreen extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println(submit);
 			action = "loginrequest";
 			passwordToSend = password.getText();
 			usernameToSend = username.getText();

@@ -38,7 +38,6 @@ public class Connection extends Thread{
 		        new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
 			while(true){
-				System.out.println("waiting for request");
 				
 				String incomingCommand = in.readLine();
 				
@@ -63,6 +62,9 @@ public class Connection extends Thread{
 						
 						allUsers.addUser(out, request);
 						break;
+					
+					case"logout":
+						return;
 						
 					}
 				}

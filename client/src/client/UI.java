@@ -34,7 +34,6 @@ public class UI {
 	}
 	
 	public void loginView (JSONObject loginRequest){
-	
 		
 		System.out.println("adding loginview to mainFrame");
 		
@@ -42,10 +41,13 @@ public class UI {
 		mainFrame.setVisible(true);
 		login.setVisible(true);
 		
+		login.submit = false;
+		
 		while(login.submit == false){
 			System.out.println("login.submit is still" + login.submit);
 			
 		}
+		
 		System.out.println("adding username and password to JSONObject");
 		
 		loginRequest.put("action", login.action);

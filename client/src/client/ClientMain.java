@@ -39,26 +39,39 @@ public class ClientMain {
     		UserInterface.loginView(loginRequest);
   
     		out.println(loginRequest.toJSONString());
+    		System.out.println("loginrequest is sent");
+    		
     		try{
-
-    			String responseString = in.readLine();
+    			
+    			System.out.println("attempting to read in response");
+    			
+    			String response;
+    			
+    			do{
+    				response = in.readLine();
+    			
+    			}while(response == null);
+    			
+    			System.out.println("receiving response" +);
+    			
     			JSONParser paerser = new JSONParser();
     		
-    			JSONObject responseMessage = (JSONObject) paerser.parse(responseString);
+    			JSONObject responseMessage = (JSONObject) paerser.parse(response);
     		
     			if((String) responseMessage.get("action") == "login Valid"){
     				System.out.println("Login Is Valid");
     				validLogin = true;
     				UserInterface.messagesView(in);
     			}
+    			System.out.println("login was invalid");
     		
     		}catch (ParseException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-
-    		
     	}
+    	
+    	
 		
 		
 		/* 
